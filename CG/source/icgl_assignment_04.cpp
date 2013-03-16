@@ -48,6 +48,31 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
     // Calcular 'vertex_ec'.
     // Calcular 'vertex_cc'.
     // Calcular 'unit_normal_ec'.
+
+	vertex_ec[0] = vertex_oc[0] * modelview_matrix(0,0) + vertex_oc[1] * modelview_matrix(0,1) + 
+		vertex_oc[2] * modelview_matrix(0,2) + vertex_oc[3] * modelview_matrix(0,3);
+	vertex_ec[1] = vertex_oc[0] * modelview_matrix(1,0) + vertex_oc[1] * modelview_matrix(1,1) + 
+		vertex_oc[2] * modelview_matrix(1,2) + vertex_oc[3] * modelview_matrix(1,3);;
+	vertex_ec[2] = vertex_oc[0] * modelview_matrix(2,0) + vertex_oc[1] * modelview_matrix(2,1) + 
+		vertex_oc[2] * modelview_matrix(2,2) + vertex_oc[3] * modelview_matrix(2,3);;
+	vertex_ec[3] = vertex_oc[0] * modelview_matrix(3,0) + vertex_oc[1] * modelview_matrix(3,1) + 
+		vertex_oc[2] * modelview_matrix(3,2) + vertex_oc[3] * modelview_matrix(3,3);;
+
+	vertex_cc[0] = vertex_ec[0] * projection_matrix(0,0) + vertex_ec[1] * projection_matrix(0,1) + 
+		vertex_ec[2] * projection_matrix(0,2) + vertex_ec[3] * projection_matrix(0,3);
+	vertex_cc[1] = vertex_ec[0] * projection_matrix(1,0) + vertex_ec[1] * projection_matrix(1,1) + 
+		vertex_ec[2] * projection_matrix(1,2) + vertex_ec[3] * projection_matrix(1,3);
+	vertex_cc[2] = vertex_ec[0] * projection_matrix(2,0) + vertex_ec[1] * projection_matrix(2,1) + 
+		vertex_ec[2] * projection_matrix(2,2) + vertex_ec[3] * projection_matrix(2,3);
+	vertex_cc[3] = vertex_ec[0] * projection_matrix(3,0) + vertex_ec[1] * projection_matrix(3,1) + 
+		vertex_ec[2] * projection_matrix(3,2) + vertex_ec[3] * projection_matrix(3,3);
+
+	unit_normal_ec[0] = vertex_cc[0] / vertex_cc[3];
+	unit_normal_ec[1] = vertex_cc[1] / vertex_cc[3];
+	unit_normal_ec[2] = vertex_cc[1] / vertex_cc[3];
+
+
+
 }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
