@@ -43,6 +43,17 @@
  */
 void make_perspective_matrix(float fovy, float aspect, float znear, float zfar, matrix_struct &perspective_matrix) {
     // Calcular 'perspective_matrix'.
+	double D2R = pi / 180.0;
+    double yScale = 1.0 / tan(D2R * fovy / 2);
+    double xScale = yScale / aspect;
+    double nearmfar = znear - zfar;
+	perspective_matrix = matrix_struct(xScale, 0, 0, 0, 0, yScale, 0, 0, 0, 0,(zfar + znear)/nearmfar, -1, 0, 0 ,2*zfar*znear/nearmfar, 0);
+    double m[] = {
+        xScale, 0, 0, 0,
+        0, yScale, 0, 0,
+        0, 0, (zfar + znear) / nearmfar, -1,
+        0, 0, 2*zfar*znear / nearmfar, 0 
+    };
 }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
