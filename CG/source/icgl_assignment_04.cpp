@@ -67,11 +67,13 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	vertex_cc[3] = vertex_ec[0] * projection_matrix(3,0) + vertex_ec[1] * projection_matrix(3,1) + 
 		vertex_ec[2] * projection_matrix(3,2) + vertex_ec[3] * projection_matrix(3,3);
 
-	unit_normal_ec[0] = vertex_cc[0] / vertex_cc[3];
-	unit_normal_ec[1] = vertex_cc[1] / vertex_cc[3];
-	unit_normal_ec[2] = vertex_cc[1] / vertex_cc[3];
+	unit_normal_ec[0] = vertex_ec[0] / normal_oc[0];
+	unit_normal_ec[1] = vertex_ec[1] / normal_oc[1];
+	unit_normal_ec[2] = vertex_ec[2] / normal_oc[2];
 
-
+	unit_normal_ec[0] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
+	unit_normal_ec[1] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
+	unit_normal_ec[2] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
 
 }
 
