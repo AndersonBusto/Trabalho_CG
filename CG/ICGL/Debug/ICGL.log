@@ -1,10 +1,66 @@
-﻿Build started 15/03/2013 19:45:56.
-     1>Project "C:\Users\Anderson\Desktop\CG\CG2\ICGL\ICGL.vcxproj" on node 2 (Build target(s)).
+﻿Build started 15/03/2013 23:25:59.
+     1>Project "C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\ICGL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\source\icgl_assignment_02.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\source\icgl_assignment_00.cpp ..\source\icgl_assignment_01.cpp ..\source\icgl_assignment_02.cpp ..\source\icgl_assignment_03.cpp ..\source\icgl_assignment_04.cpp ..\source\icgl_assignment_05.cpp ..\source\icgl_assignment_06.cpp ..\source\icgl_assignment_07.cpp ..\source\icgl_assignment_utils.cpp ..\source\icgl_core.cpp ..\source\main.cpp ..\source\obj_loader.cpp
          icgl_assignment_02.cpp
+         Generating Code...
+         Compiling...
+         obj_loader.cpp
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(188): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(115) : see declaration of 'strcat'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(191): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(194): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(200): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(211): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(237): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(244): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(115) : see declaration of 'strcat'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(269): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(303): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(115) : see declaration of 'strcat'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(306): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(309): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(316): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(352): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(358): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(396): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(427): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\obj_loader.cpp(457): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(200) : see declaration of 'strtok'
+         main.cpp
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\main.cpp(407): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\main.cpp(1226): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\main.cpp(1229): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+     1>c:\users\anderson\documents\github\trabalho_cg\cg\source\main.cpp(1249): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+         icgl_core.cpp
+         icgl_assignment_utils.cpp
+         icgl_assignment_07.cpp
+         icgl_assignment_06.cpp
+         icgl_assignment_05.cpp
+         icgl_assignment_04.cpp
+         icgl_assignment_03.cpp
+         icgl_assignment_01.cpp
+         icgl_assignment_00.cpp
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.exe" /INCREMENTAL /NOLOGO DevIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.lib" /MACHINE:X86 Debug\icgl_assignment_00.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\ICGL.exe" /INCREMENTAL /NOLOGO DevIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\ICGL.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\ICGL.lib" /MACHINE:X86 Debug\icgl_assignment_00.obj
          Debug\icgl_assignment_01.obj
          Debug\icgl_assignment_02.obj
          Debug\icgl_assignment_03.obj
@@ -16,9 +72,34 @@
          Debug\icgl_core.obj
          Debug\main.obj
          Debug\obj_loader.obj
-         ICGL.vcxproj -> C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.exe
-     1>Done Building Project "C:\Users\Anderson\Desktop\CG\CG2\ICGL\ICGL.vcxproj" (Build target(s)).
+     1>glui32.lib(algebra3.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(arcball.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_add_controls.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_bitmaps.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_bitmap_img_data.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_button.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_checkbox.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_column.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_control.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_edittext.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_listbox.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_mouse_iaction.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_node.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_panel.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_radio.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_rollout.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_rotation.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_separator.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_spinner.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_statictext.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_string.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_translation.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(glui_window.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+     1>glui32.lib(quaternion.obj) : warning LNK4204: 'C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\vc110.pdb' is missing debugging information for referencing module; linking object as if no debug info
+         ICGL.vcxproj -> C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\Debug\ICGL.exe
+     1>Done Building Project "C:\Users\Anderson\Documents\GitHub\Trabalho_CG\CG\ICGL\ICGL.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.95
+Time Elapsed 00:00:07.04

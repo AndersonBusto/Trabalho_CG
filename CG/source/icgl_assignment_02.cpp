@@ -43,15 +43,19 @@
  */
 void make_lookat_matrix(float eyex, float eyey, float eyez, float centerx, float centery, float centerz, float upx, float upy, float upz, matrix_struct &lookat_matrix) {
     // Calcular 'lookat_matrix'.
+	printf("eyex %f \n", eyex);printf("eyey %f \n", eyey); printf("eyez %f \n", eyez);
+	printf("center %f \n", centerx);printf("centery %f \n", centery); printf("centerz %f \n", centerz);
+	printf("upx %f \n", upx);printf("upy %f \n", upy); printf("upz %f \n", upz);
+
 	float dotProductX, dotProductY, dotProductZ;
 	float normal_zx, normal_zy, normal_zz;
 	float normal_xx, normal_xy, normal_xz;
 	float normal_yx, normal_yy, normal_yz;
 	float x_x, x_y, x_z;
 	float y_x, y_y, y_z;
-	float z_x = centerx - eyex;
-	float z_y = centery - eyey;
-	float z_z = centerz - eyez;
+	float z_x = eyex - centerx;
+	float z_y = eyey - centery;
+	float z_z = eyez - centerz;
 	normalize(z_x, z_y, z_z, &normal_zx, &normal_zy, &normal_zz);
 
 	crossProduct(upx, upy, upz, normal_zx, normal_zy, normal_zz, &x_x, &x_y, &x_z);
@@ -66,7 +70,7 @@ void make_lookat_matrix(float eyex, float eyey, float eyez, float centerx, float
 	dotProductX =  dotProduct(normal_xx, normal_xy, normal_xz, -eyex, -eyey, -eyez);
 	dotProductY =  dotProduct(normal_yx, normal_yy, normal_yz, -eyex, -eyey, -eyez);
 	dotProductZ =  dotProduct(normal_zx, normal_zy, normal_zz, -eyex, -eyey, -eyez);
-	printf("eyey %f \n", eyex);
+	
 	printf("%f \n", dotProductX);
 	printf("%f \n", dotProductY);
 	printf("%f \n", dotProductZ);
