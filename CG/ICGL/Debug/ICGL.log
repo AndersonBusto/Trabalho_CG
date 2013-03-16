@@ -1,0 +1,24 @@
+﻿Build started 15/03/2013 19:45:56.
+     1>Project "C:\Users\Anderson\Desktop\CG\CG2\ICGL\ICGL.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\source\icgl_assignment_02.cpp
+         icgl_assignment_02.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.exe" /INCREMENTAL /NOLOGO DevIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.lib" /MACHINE:X86 Debug\icgl_assignment_00.obj
+         Debug\icgl_assignment_01.obj
+         Debug\icgl_assignment_02.obj
+         Debug\icgl_assignment_03.obj
+         Debug\icgl_assignment_04.obj
+         Debug\icgl_assignment_05.obj
+         Debug\icgl_assignment_06.obj
+         Debug\icgl_assignment_07.obj
+         Debug\icgl_assignment_utils.obj
+         Debug\icgl_core.obj
+         Debug\main.obj
+         Debug\obj_loader.obj
+         ICGL.vcxproj -> C:\Users\Anderson\Desktop\CG\CG2\ICGL\Debug\ICGL.exe
+     1>Done Building Project "C:\Users\Anderson\Desktop\CG\CG2\ICGL\ICGL.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.95
