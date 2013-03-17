@@ -24,6 +24,8 @@
  * Conjunto de operações utilizadas para ensino de Pipeline Gráfico no Instito de Computação (IC) da Universidade Federal Fluminense (UFF).
  */
 #include <icgl.h>
+#include <cstdlib>
+#include <malloc.h>
 
 #if defined(ICGL_ASSIGNMENT_04_VERTEX_TRANSFORMATION)
 
@@ -67,24 +69,161 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	vertex_cc[3] = vertex_ec[0] * projection_matrix(3,0) + vertex_ec[1] * projection_matrix(3,1) + 
 		vertex_ec[2] * projection_matrix(3,2) + vertex_ec[3] * projection_matrix(3,3);
 
-	/*unit_normal_ec[0] = vertex_ec[0] / normal_oc[0];
-	unit_normal_ec[1] = vertex_ec[1] / normal_oc[1];
-	unit_normal_ec[2] = vertex_ec[2] / normal_oc[2];
+	matrix_struct transposta = matrix_struct();
+	matrix_struct cofatores = matrix_struct();
+	matrix_struct transpostaCof = matrix_struct();
+	matrix_struct inversa = matrix_struct();
 
-	unit_normal_ec[0] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
-	unit_normal_ec[1] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
-	unit_normal_ec[2] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));*/
-	
-	matrix_struct  matrix, matrix2;
-	transpose_matrix(modelview_matrix, matrix);
-	inverse_matrix(matrix, matrix2);
+	transpose_matrix(modelview_matrix, transposta);
 
-	unit_normal_ec[0] = normal_oc[0] * matrix2(0,0) +  normal_oc[1] *  matrix2(0,1) + 
-		normal_oc[2] *  matrix2(0,2) +  normal_oc[3] *  matrix2(0,3); 
-	unit_normal_ec[1] = normal_oc[0] * matrix2(1,0) +  normal_oc[1] *  matrix2(1,1) + 
-		normal_oc[2] *  matrix2(1,2) +  normal_oc[3] *  matrix2(1,3); 
-	unit_normal_ec[2] = normal_oc[0] * matrix2(2,0) +  normal_oc[1] *  matrix2(2,1) + 
-		normal_oc[2] *  matrix2(2,2) +  normal_oc[3] *  matrix2(2,3); 
+	float determinante = det(transposta);
+	matrixCofatores(transposta, cofatores);
+	transpose_matrix(cofatores, transpostaCof);
+
+	inversa(0,0) = transpostaCof(0,0) / determinante;
+	inversa(0,1) = transpostaCof(0,1) / determinante;
+	inversa(0,2) = transpostaCof(0,2) / determinante;
+	inversa(0,3) = transpostaCof(0,3) / determinante;
+	inversa(1,0) = transpostaCof(1,0) / determinante;
+	inversa(1,1) = transpostaCof(1,1) / determinante;
+	inversa(1,2) = transpostaCof(1,2) / determinante;
+	inversa(1,3) = transpostaCof(1,3) / determinante;
+	inversa(2,0) = transpostaCof(2,0) / determinante;
+	inversa(2,1) = transpostaCof(2,1) / determinante;
+	inversa(2,2) = transpostaCof(2,2) / determinante;
+	inversa(2,3) = transpostaCof(2,3) / determinante;
+	inversa(3,0) = transpostaCof(3,0) / determinante;
+	inversa(3,1) = transpostaCof(3,1) / determinante;
+	inversa(3,2) = transpostaCof(3,2) / determinante;
+	inversa(3,3) = transpostaCof(3,3) / determinante;
+
+	//AKI EH UM TESTE!!!
+
+	matrix_struct teste = matrix_struct(0, 2, 1, 2, 1, 3, 3, 1, 0, 1, 0, 1, 0, 6, 1, 2);
+	matrix_struct cofteste = matrix_struct();
+	matrix_struct transpostaCofTeste = matrix_struct();
+	matrix_struct inversaTeste = matrix_struct();
+
+	//determinante = det(teste);
+
+	printf("Determinante %f ", determinante);
+	//matrixCofatores(teste, cofteste);
+	//transpose_matrix(cofteste, transpostaCofTeste);
+
+	inversaTeste(0,0) = transpostaCof(0,0) / determinante;
+	inversaTeste(0,1) = transpostaCof(0,1) / determinante;
+	inversaTeste(0,2) = transpostaCof(0,2) / determinante;
+	inversaTeste(0,3) = transpostaCof(0,3) / determinante;
+	inversaTeste(1,0) = transpostaCof(1,0) / determinante;
+	inversaTeste(1,1) = transpostaCof(1,1) / determinante;
+	inversaTeste(1,2) = transpostaCof(1,2) / determinante;
+	inversaTeste(1,3) = transpostaCof(1,3) / determinante;
+	inversaTeste(2,0) = transpostaCof(2,0) / determinante;
+	inversaTeste(2,1) = transpostaCof(2,1) / determinante;
+	inversaTeste(2,2) = transpostaCof(2,2) / determinante;
+	inversaTeste(2,3) = transpostaCof(2,3) / determinante;
+	inversaTeste(3,0) = transpostaCof(3,0) / determinante;
+	inversaTeste(3,1) = transpostaCof(3,1) / determinante;
+	inversaTeste(3,2) = transpostaCof(3,2) / determinante;
+	inversaTeste(3,3) = transpostaCof(3,3) / determinante;
+
+
+	printf("[0,0] %f ", inversaTeste(0,0), 2);
+	printf("[0,1] %f ", inversaTeste(0,1));
+	printf("[0,2] %f ", inversaTeste(0,2));
+	printf("[0,3] %f\n", inversaTeste(0,3));
+	printf("[1,0] %f ", inversaTeste(1,0));
+	printf("[1,1] %f ", inversaTeste(1,1));
+	printf("[1,2] %f ", inversaTeste(1,2));
+	printf("[1,3] %f\n", inversaTeste(1,3));
+	printf("[2,0] %f ", inversaTeste(2,0));
+	printf("[2,1] %f ", inversaTeste(2,1));
+	printf("[2,2] %f ", inversaTeste(2,2));
+	printf("[2,3] %f\n", inversaTeste(2,3));
+	printf("[3,0] %f ", inversaTeste(3,0));
+	printf("[3,1] %f ", inversaTeste(3,1));
+	printf("[3,2] %f ", inversaTeste(3,2));
+	printf("[3,3] %f\n", inversaTeste(3,3));
+
+	//TERMINA O TESTE!!
+
+	unit_normal_ec[0] = normal_oc[0] * inversa(0,0) +  normal_oc[1] *  inversa(0,1) + 
+		normal_oc[2] *  inversa(0,2) +  normal_oc[3] *  inversa(0,3); 
+	unit_normal_ec[1] = normal_oc[0] * inversa(1,0) +  normal_oc[1] *  inversa(1,1) + 
+		normal_oc[2] *  inversa(1,2) +  normal_oc[3] *  inversa(1,3); 
+	unit_normal_ec[2] = normal_oc[0] * inversa(2,0) +  normal_oc[1] *  inversa(2,1) + 
+		normal_oc[2] *  inversa(2,2) +  normal_oc[3] *  inversa(2,3); 
+
+	unit_normal_ec[0] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
+	unit_normal_ec[1] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
+	unit_normal_ec[2] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
+}
+
+float** alocaMatriz()
+   {
+       float **p; 
+	   p =  (float**) malloc(3 * sizeof (float*));
+       
+       int i;
+       for(i=0; i < 3; i++)
+               p[i] = (float*) malloc(3 * sizeof (float));
+
+       return p;       
+   }
+
+float det(matrix_struct matrix){
+	return matrix(0,0) * cofator(0,0, matrix) - matrix(0,1) * cofator(0,1, matrix) + matrix(0,2)
+		* cofator(0,2,matrix) - matrix(0,3) * cofator(0,3,matrix);
+}
+
+
+float det3(float** matrix){
+	return (matrix[0][0] * matrix[1][1] * matrix[2][2])
+		+  (matrix[0][1] * matrix[1][2] * matrix[2][0])
+		+  (matrix[0][2] * matrix[1][0] * matrix[2][1])
+		
+		-  (matrix[2][0] * matrix[1][1] * matrix[0][2])
+		-  (matrix[2][1] * matrix[1][2] * matrix[0][0])
+		-  (matrix[2][2] * matrix[1][0] * matrix[0][1])
+		;
+
+}
+
+float cofator(int linha, int coluna, matrix_struct matrix){
+	float** matrixAux;
+	matrixAux = alocaMatriz();
+	int pc = 0, pl = 0, i, j;
+	for(i=0; i<=3; i++){
+		for(j=0; j<=3; j++){
+			if(linha != i && coluna != j){
+				matrixAux[pl][pc] = matrix(i,j);
+				pc++;
+			}
+		}
+		if(pc!=0){
+			pl++; pc=0;		
+		}
+	}
+	return det3(matrixAux);
+}
+
+void matrixCofatores(matrix_struct original, matrix_struct &cofatores){
+	cofatores(0,0) = cofator(0,0,original);
+	cofatores(0,1) = cofator(0,1,original);
+	cofatores(0,2) = cofator(0,2,original);
+	cofatores(0,3) = cofator(0,3,original);
+	cofatores(1,0) = cofator(1,0,original);
+	cofatores(1,1) = cofator(1,1,original);
+	cofatores(1,2) = cofator(1,2,original);
+	cofatores(1,3) = cofator(1,3,original);
+	cofatores(2,0) = cofator(2,0,original);
+	cofatores(2,1) = cofator(2,1,original);
+	cofatores(2,2) = cofator(2,2,original);
+	cofatores(2,3) = cofator(2,3,original);
+	cofatores(3,0) = cofator(3,0,original);
+	cofatores(3,1) = cofator(3,1,original);
+	cofatores(3,2) = cofator(3,2,original);
+	cofatores(3,3) = cofator(3,3,original);
 }
 
 void transpose_matrix(const matrix_struct &original, matrix_struct &transposed) {
@@ -95,89 +234,6 @@ void transpose_matrix(const matrix_struct &original, matrix_struct &transposed) 
 		}
 	}	
 }
-
-void gaussian(matrix_struct a, int index[]) {
-	const int n = a.cols_count;
-    float c[n];
-
- // Initialize the index
-    for (int i = 0; i < n; ++i) 
-		index[i] = i;
-
- // Find the rescaling factors, one from each row
-    for (int i = 0; i < n; ++i) {
-		float c1 = 0.0f;
-			for (int j = 0; j < n; ++j) {
-				float c0 = abs(a(i, j));
-				if (c0 > c1)
-					c1 = c0;
-			}
-		c[i] = c1;
-    }
-
- // Search the pivoting element from each column
-    int k = 0;
-    for (int j = 0; j < n - 1; ++j) {
-		float pi1 = 0;
-		for (int i = j; i < n; ++i) {
-			float pi0 = abs(a(index[i], j));
-			pi0 /= c[index[i]];
-			if (pi0 > pi1) {
-				pi1 = pi0;
-			k = i;
-			}
-		}
-
-   // Interchange rows according to the pivoting order
-		int itmp = index[j];
-		index[j] = index[k];
-		index[k] = itmp;
-		for (int i = j + 1; i < n; ++i) {
-			float pj = a(index[i], j) / a(index[j], j);
-
-		// Record pivoting ratios below the diagonal
-	    a(index[i], j) = pj;
-
-			 // Modify other elements accordingly
-			for (int l = j + 1; l < n; ++l)
-				a(index[i], l) -= pj * a(index[j], l);
-	   }
-    }
-}
-
-void inverse_matrix(matrix_struct &original, matrix_struct & inverted) {
-	matrix_struct aux = matrix_struct(original);
-	inverted = matrix_struct();
-	const int n = original.rows_count;
-	int m = original.cols_count;
-	matrix_struct matrixA = matrix_struct();
-	matrix_struct matrixB = matrix_struct();
-    int index[n];
-    for (int i = 0; i < n; ++i) 
-		matrixB(i,i) = 1;
-
- // Transform the matrix into an upper triangle
-    gaussian(aux, index);
-
- // Update the matrix b[i][j] with the ratios stored
-    for (int i = 0; i < n-1; ++i)
-      for (int j = i + 1; j < n; ++j)
-        for (int k = 0; k < n; ++k)
-          matrixB(index[j], k) -= aux(index[j], i) * matrixB(index[i], k);
-
- // Perform backward substitutions
-    for (int i = 0; i < n; ++i) {
-      matrixA(n-1, i) = matrixB(index[n-1], i) / aux(index[n-1], n-1);
-      for (int j = n - 2; j >= 0; --j) {
-        matrixA(j, i) = matrixB(index[j], i);
-        for (int k = j + 1; k < n; ++k) {
-          matrixA(j, i) -= aux(index[j], k) * matrixA(k, i);
-        }
-        matrixA(j, i) /= aux(index[j], j);
-      }
-    }
-	inverted = matrix_struct(matrixA);
-  }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 

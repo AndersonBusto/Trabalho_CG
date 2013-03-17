@@ -39,6 +39,11 @@
 	void gaussian(matrix_struct a, int index[]);
 	void transpose_matrix(const matrix_struct &original, matrix_struct & transposed);
 	void inverse_matrix(matrix_struct &original, matrix_struct & inverted);
+	float** alocaMatriz();
+	float det(matrix_struct matrix);
+	float det3(float** matrix);
+	float cofator(int linha, int coluna, matrix_struct matrix);
+	void matrixCofatores(matrix_struct original, matrix_struct &cofatores);
 #endif
 
 // FIM DA DEFINIÇÃO DAS ROTINAS ÚTEIS IMPLEMENTADAS PELO ALUNO //////////////////////////////////////////////////////////////
