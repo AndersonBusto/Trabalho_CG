@@ -75,10 +75,12 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	unit_normal_ec[1] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
 	unit_normal_ec[2] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
 
+	
+
 }
 
-void transpose_matrix(matrix_struct &original, matrix_struct & transposed) {
-	matrix_struct transposed = matrix_struct();
+void transpose_matrix(const matrix_struct &original, matrix_struct &transposed) {
+	transposed = matrix_struct();
 	for (int i = 0; i < original.cols_count; i++) {
 		for (int j = 0; j < original.rows_count; j++) {
 			transposed(j, i) = original(i, j);
@@ -86,9 +88,87 @@ void transpose_matrix(matrix_struct &original, matrix_struct & transposed) {
 	}	
 }
 
-void inverse_matrix(matrix_struct &original, matrix_struct & inverted) {
+void gaussian(matrix_struct a, int index[]) {
+	const int n = sizeof(index) / sizeof(int);
+    float c[n];
 
+ // Initialize the index
+    for (int i = 0; i < n; ++i) 
+		index[i] = i;
+
+ // Find the rescaling factors, one from each row
+    for (int i = 0; i < n; ++i) {
+		float c1 = 0.0f;
+			for (int j = 0; j < n; ++j) {
+				float c0 = abs(a(i, j));
+				if (c0 > c1)
+					c1 = c0;
+			}
+		c[i] = c1;
+    }
+
+ // Search the pivoting element from each column
+    int k = 0;
+    for (int j = 0; j < n - 1; ++j) {
+		float pi1 = 0;
+		for (int i = j; i < n; ++i) {
+			float pi0 = abs(a(index[i], j));
+			pi0 /= c[index[i]];
+			if (pi0 > pi1) {
+				pi1 = pi0;
+			k = i;
+			}
+		}
+
+   // Interchange rows according to the pivoting order
+		int itmp = index[j];
+		index[j] = index[k];
+		index[k] = itmp;
+		for (int i = j + 1; i < n; ++i) {
+			double pj = a(index[i], j) / a(index[j], j);
+
+		// Record pivoting ratios below the diagonal
+	    a(index[i], j) = pj;
+
+			 // Modify other elements accordingly
+			for (int l = j + 1; l < n; ++l)
+				a(index[i], l) -= pj * a(index[j], l);
+	   }
+    }
 }
+
+void inverse_matrix(matrix_struct &original, matrix_struct & inverted) {
+	inverted = matrix_struct();
+	const int n = original.rows_count;
+	int m = original.cols_count;
+	matrix_struct matrixA = matrix_struct();
+	matrix_struct matrixB = matrix_struct();
+    int index[n];
+    for (int i = 0; i < n; ++i) 
+		matrixB(i,i) = 1;
+
+ // Transform the matrix into an upper triangle
+    gaussian(original, index);
+
+ // Update the matrix b[i][j] with the ratios stored
+    for (int i = 0; i < n-1; ++i)
+      for (int j = i + 1; j < n; ++j)
+        for (int k = 0; k < n; ++k)
+          matrixB(index[j], k) -= original(index[j], i) * matrixB(index[i], k);
+
+ // Perform backward substitutions
+    for (int i = 0; i < n; ++i) {
+      matrixA(n-1, i) = matrixB(index[n-1], i) / original(index[n-1], n-1);
+      for (int j = n - 2; j >= 0; --j) {
+        matrixA(j, i) = matrixB(index[j], i);
+        for (int k = j + 1; k < n; ++k) {
+          matrixA(j, i) -= original(index[j], k) * matrixA(k, i);
+        }
+        matrixA(j, i) /= original(index[j], j);
+      }
+    }
+	inverted = matrix_struct(matrixA);
+  }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 

@@ -35,6 +35,12 @@
 	float dotProduct(float Ax, float Ay, float Az, float Bx, float By, float Bz);
 #endif
 
+#if defined(ICGL_ASSIGNMENT_04_VERTEX_TRANSFORMATION)
+	void gaussian(matrix_struct a, int index[]);
+	void transpose_matrix(matrix_struct &original, matrix_struct & transposed);
+	void inverse_matrix(matrix_struct &original, matrix_struct & inverted);
+#endif
+
 // FIM DA DEFINIÇÃO DAS ROTINAS ÚTEIS IMPLEMENTADAS PELO ALUNO //////////////////////////////////////////////////////////////
 
 #endif
