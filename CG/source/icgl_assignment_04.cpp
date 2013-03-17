@@ -67,16 +67,24 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	vertex_cc[3] = vertex_ec[0] * projection_matrix(3,0) + vertex_ec[1] * projection_matrix(3,1) + 
 		vertex_ec[2] * projection_matrix(3,2) + vertex_ec[3] * projection_matrix(3,3);
 
-	unit_normal_ec[0] = vertex_ec[0] / normal_oc[0];
+	/*unit_normal_ec[0] = vertex_ec[0] / normal_oc[0];
 	unit_normal_ec[1] = vertex_ec[1] / normal_oc[1];
 	unit_normal_ec[2] = vertex_ec[2] / normal_oc[2];
 
 	unit_normal_ec[0] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
 	unit_normal_ec[1] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
-	unit_normal_ec[2] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));
-
+	unit_normal_ec[2] /= sqrt(pow(normal_oc[0], 2) + pow(normal_oc[1], 2) + pow(normal_oc[2], 2));*/
 	
+	matrix_struct  matrix, matrix2;
+	transpose_matrix(modelview_matrix, matrix);
+	inverse_matrix(matrix, matrix2);
 
+	unit_normal_ec[0] = normal_oc[0] * matrix2(0,0) +  normal_oc[1] *  matrix2(0,1) + 
+		normal_oc[2] *  matrix2(0,2) +  normal_oc[3] *  matrix2(0,3); 
+	unit_normal_ec[1] = normal_oc[0] * matrix2(1,0) +  normal_oc[1] *  matrix2(1,1) + 
+		normal_oc[2] *  matrix2(1,2) +  normal_oc[3] *  matrix2(1,3); 
+	unit_normal_ec[2] = normal_oc[0] * matrix2(2,0) +  normal_oc[1] *  matrix2(2,1) + 
+		normal_oc[2] *  matrix2(2,2) +  normal_oc[3] *  matrix2(2,3); 
 }
 
 void transpose_matrix(const matrix_struct &original, matrix_struct &transposed) {
@@ -89,7 +97,7 @@ void transpose_matrix(const matrix_struct &original, matrix_struct &transposed) 
 }
 
 void gaussian(matrix_struct a, int index[]) {
-	const int n = sizeof(index) / sizeof(int);
+	const int n = a.cols_count;
     float c[n];
 
  // Initialize the index
@@ -125,7 +133,7 @@ void gaussian(matrix_struct a, int index[]) {
 		index[j] = index[k];
 		index[k] = itmp;
 		for (int i = j + 1; i < n; ++i) {
-			double pj = a(index[i], j) / a(index[j], j);
+			float pj = a(index[i], j) / a(index[j], j);
 
 		// Record pivoting ratios below the diagonal
 	    a(index[i], j) = pj;
@@ -138,6 +146,7 @@ void gaussian(matrix_struct a, int index[]) {
 }
 
 void inverse_matrix(matrix_struct &original, matrix_struct & inverted) {
+	matrix_struct aux = matrix_struct(original);
 	inverted = matrix_struct();
 	const int n = original.rows_count;
 	int m = original.cols_count;
@@ -148,23 +157,23 @@ void inverse_matrix(matrix_struct &original, matrix_struct & inverted) {
 		matrixB(i,i) = 1;
 
  // Transform the matrix into an upper triangle
-    gaussian(original, index);
+    gaussian(aux, index);
 
  // Update the matrix b[i][j] with the ratios stored
     for (int i = 0; i < n-1; ++i)
       for (int j = i + 1; j < n; ++j)
         for (int k = 0; k < n; ++k)
-          matrixB(index[j], k) -= original(index[j], i) * matrixB(index[i], k);
+          matrixB(index[j], k) -= aux(index[j], i) * matrixB(index[i], k);
 
  // Perform backward substitutions
     for (int i = 0; i < n; ++i) {
-      matrixA(n-1, i) = matrixB(index[n-1], i) / original(index[n-1], n-1);
+      matrixA(n-1, i) = matrixB(index[n-1], i) / aux(index[n-1], n-1);
       for (int j = n - 2; j >= 0; --j) {
         matrixA(j, i) = matrixB(index[j], i);
         for (int k = j + 1; k < n; ++k) {
-          matrixA(j, i) -= original(index[j], k) * matrixA(k, i);
+          matrixA(j, i) -= aux(index[j], k) * matrixA(k, i);
         }
-        matrixA(j, i) /= original(index[j], j);
+        matrixA(j, i) /= aux(index[j], j);
       }
     }
 	inverted = matrix_struct(matrixA);

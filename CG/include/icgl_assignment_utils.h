@@ -37,7 +37,7 @@
 
 #if defined(ICGL_ASSIGNMENT_04_VERTEX_TRANSFORMATION)
 	void gaussian(matrix_struct a, int index[]);
-	void transpose_matrix(matrix_struct &original, matrix_struct & transposed);
+	void transpose_matrix(const matrix_struct &original, matrix_struct & transposed);
 	void inverse_matrix(matrix_struct &original, matrix_struct & inverted);
 #endif
 
