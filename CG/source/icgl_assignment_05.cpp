@@ -53,7 +53,51 @@
  */
 void vertex_lighting(const location_struct &vertex_ec, const direction_struct &unit_normal_ec, const color_struct &base_color, bool lighting_enabled, const color_struct &material_ambient, const color_struct &material_diffuse, const color_struct &material_specular, float material_shininess, const location_struct &light_ec, const color_struct &light_ambient, const color_struct &light_diffuse, const color_struct &light_specular, color_struct &vertex_color) {
     // Calcular 'vertex_color'.
+	float S_x, S_y, S_z;
+	float V_x, V_y, V_z;
+	float H_x, H_y, H_z;
+
+	if(lighting_enabled) {
+		//Diffuse
+		normalize(light_ec.x - vertex_ec.x, light_ec.y - vertex_ec.y, light_ec.z - vertex_ec.z, &S_x, &S_y, &S_z);
+		float dotProductDiffuse = dotProduct (unit_normal_ec.x, unit_normal_ec.y, unit_normal_ec.z, S_x, S_y, S_z);
+
+		color_struct lightDiffuse = color_struct();
+		lightDiffuse.r = light_diffuse.r * material_diffuse.r * dotProductDiffuse;
+		lightDiffuse.g = light_diffuse.g * material_diffuse.g * dotProductDiffuse;
+		lightDiffuse.b = light_diffuse.b * material_diffuse.b * dotProductDiffuse;
+		lightDiffuse.a = light_diffuse.a * material_diffuse.a * dotProductDiffuse;
+
+		//Specular
+		normalize(- vertex_ec.x, - vertex_ec.y, - vertex_ec.z, &V_x, &V_y, &V_z);
+
+		normalize(S_x + V_x, S_y + V_y, S_z + V_z, &H_x, &H_y, &H_z);
+		float dotProductSpecular = dotProduct(H_x, H_y, H_z, unit_normal_ec.x, unit_normal_ec.y, unit_normal_ec.z);
+
+		color_struct lightSpecular = color_struct();
+		lightSpecular.r = light_specular.r * material_specular.r * pow(dotProductSpecular, material_shininess);
+		lightSpecular.g = light_specular.g * material_specular.g * pow(dotProductSpecular, material_shininess);
+		lightSpecular.b = light_specular.b * material_specular.b * pow(dotProductSpecular, material_shininess);
+		lightSpecular.a = light_specular.a * material_specular.a * pow(dotProductSpecular, material_shininess);
+
+		//Ambient
+		color_struct lightAmbient = color_struct();
+		lightAmbient.r = light_ambient.r * material_ambient.r;
+		lightAmbient.g = light_ambient.g * material_ambient.g;
+		lightAmbient.b = light_ambient.b * material_ambient.b;
+		lightAmbient.a = light_ambient.a * material_ambient.a;
+
+		//Result
+		vertex_color = color_struct(lightDiffuse.r + lightSpecular.r + lightAmbient.r, 
+			lightDiffuse.g + lightSpecular.g + lightAmbient.g, 
+			lightDiffuse.b + lightSpecular.b + lightAmbient.b, 
+			lightDiffuse.a + lightSpecular.a + lightAmbient.a);
+	} else {
+		vertex_color = color_struct(base_color);
+	}
 }
+
+
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 

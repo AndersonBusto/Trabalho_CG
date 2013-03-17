@@ -77,6 +77,19 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 
 }
 
+void transpose_matrix(matrix_struct &original, matrix_struct & transposed) {
+	matrix_struct transposed = matrix_struct();
+	for (int i = 0; i < original.cols_count; i++) {
+		for (int j = 0; j < original.rows_count; j++) {
+			transposed(j, i) = original(i, j);
+		}
+	}	
+}
+
+void inverse_matrix(matrix_struct &original, matrix_struct & inverted) {
+
+}
+
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 
 #endif
