@@ -74,10 +74,8 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	matrix_struct transpostaCof = matrix_struct();
 	matrix_struct inversa = matrix_struct();
 
-	transpose_matrix(modelview_matrix, transposta);
-
-	float determinante = det(transposta);
-	matrixCofatores(transposta, cofatores);
+	float determinante = det(modelview_matrix);
+	matrixCofatores(modelview_matrix, cofatores);
 	transpose_matrix(cofatores, transpostaCof);
 
 	inversa(0,0) = transpostaCof(0,0) / determinante;
@@ -97,67 +95,97 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	inversa(3,2) = transpostaCof(3,2) / determinante;
 	inversa(3,3) = transpostaCof(3,3) / determinante;
 
-	//AKI EH UM TESTE!!!
+	transpose_matrix(inversa, transposta);
 
-	matrix_struct teste = matrix_struct(0, 2, 1, 2, 1, 3, 3, 1, 0, 1, 0, 1, 0, 6, 1, 2);
-	matrix_struct cofteste = matrix_struct();
-	matrix_struct transpostaCofTeste = matrix_struct();
-	matrix_struct inversaTeste = matrix_struct();
-
-	//determinante = det(teste);
-
-	printf("Determinante %f ", determinante);
-	//matrixCofatores(teste, cofteste);
-	//transpose_matrix(cofteste, transpostaCofTeste);
-
-	inversaTeste(0,0) = transpostaCof(0,0) / determinante;
-	inversaTeste(0,1) = transpostaCof(0,1) / determinante;
-	inversaTeste(0,2) = transpostaCof(0,2) / determinante;
-	inversaTeste(0,3) = transpostaCof(0,3) / determinante;
-	inversaTeste(1,0) = transpostaCof(1,0) / determinante;
-	inversaTeste(1,1) = transpostaCof(1,1) / determinante;
-	inversaTeste(1,2) = transpostaCof(1,2) / determinante;
-	inversaTeste(1,3) = transpostaCof(1,3) / determinante;
-	inversaTeste(2,0) = transpostaCof(2,0) / determinante;
-	inversaTeste(2,1) = transpostaCof(2,1) / determinante;
-	inversaTeste(2,2) = transpostaCof(2,2) / determinante;
-	inversaTeste(2,3) = transpostaCof(2,3) / determinante;
-	inversaTeste(3,0) = transpostaCof(3,0) / determinante;
-	inversaTeste(3,1) = transpostaCof(3,1) / determinante;
-	inversaTeste(3,2) = transpostaCof(3,2) / determinante;
-	inversaTeste(3,3) = transpostaCof(3,3) / determinante;
-
-
-	printf("[0,0] %f ", inversaTeste(0,0), 2);
-	printf("[0,1] %f ", inversaTeste(0,1));
-	printf("[0,2] %f ", inversaTeste(0,2));
-	printf("[0,3] %f\n", inversaTeste(0,3));
-	printf("[1,0] %f ", inversaTeste(1,0));
-	printf("[1,1] %f ", inversaTeste(1,1));
-	printf("[1,2] %f ", inversaTeste(1,2));
-	printf("[1,3] %f\n", inversaTeste(1,3));
-	printf("[2,0] %f ", inversaTeste(2,0));
-	printf("[2,1] %f ", inversaTeste(2,1));
-	printf("[2,2] %f ", inversaTeste(2,2));
-	printf("[2,3] %f\n", inversaTeste(2,3));
-	printf("[3,0] %f ", inversaTeste(3,0));
-	printf("[3,1] %f ", inversaTeste(3,1));
-	printf("[3,2] %f ", inversaTeste(3,2));
-	printf("[3,3] %f\n", inversaTeste(3,3));
-
-	//TERMINA O TESTE!!
-
-	unit_normal_ec[0] = normal_oc[0] * inversa(0,0) +  normal_oc[1] *  inversa(0,1) + 
-		normal_oc[2] *  inversa(0,2) +  normal_oc[3] *  inversa(0,3); 
-	unit_normal_ec[1] = normal_oc[0] * inversa(1,0) +  normal_oc[1] *  inversa(1,1) + 
-		normal_oc[2] *  inversa(1,2) +  normal_oc[3] *  inversa(1,3); 
-	unit_normal_ec[2] = normal_oc[0] * inversa(2,0) +  normal_oc[1] *  inversa(2,1) + 
-		normal_oc[2] *  inversa(2,2) +  normal_oc[3] *  inversa(2,3); 
+	unit_normal_ec[0] = normal_oc[0] * transposta(0,0) +  normal_oc[1] *  transposta(0,1) + 
+		normal_oc[2] *  transposta(0,2) +  normal_oc[3] *  transposta(0,3); 
+	unit_normal_ec[1] = normal_oc[0] * transposta(1,0) +  normal_oc[1] *  transposta(1,1) + 
+		normal_oc[2] *  transposta(1,2) +  normal_oc[3] *  transposta(1,3); 
+	unit_normal_ec[2] = normal_oc[0] * transposta(2,0) +  normal_oc[1] *  transposta(2,1) + 
+		normal_oc[2] *  transposta(2,2) +  normal_oc[3] *  transposta(2,3); 
 
 	unit_normal_ec[0] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
 	unit_normal_ec[1] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
 	unit_normal_ec[2] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
+
+
+	//Teste
+
+	matrix_struct transpostaTeste = matrix_struct();
+	matrix_struct cofatoresTeste = matrix_struct();
+	matrix_struct transpostaCofTeste = matrix_struct();
+	matrix_struct inversaTeste = matrix_struct();
+	matrix_struct viewTeste = matrix_struct(1, 2, -1, 2, 2, 2, -1, 1, -1, -1, 1, -1, 2, 1, -1, 2);
+
+	float determinanteTeste = det(viewTeste);
+
+	matrixCofatores(viewTeste, cofatoresTeste);
+	transpose_matrix(cofatoresTeste, transpostaCofTeste);
+
+	inversaTeste(0,0) = transpostaCofTeste(0,0) / determinanteTeste;
+	inversaTeste(0,1) = transpostaCofTeste(0,1) / determinanteTeste;
+	inversaTeste(0,2) = transpostaCofTeste(0,2) / determinanteTeste;
+	inversaTeste(0,3) = transpostaCofTeste(0,3) / determinanteTeste;
+	inversaTeste(1,0) = transpostaCofTeste(1,0) / determinanteTeste;
+	inversaTeste(1,1) = transpostaCofTeste(1,1) / determinanteTeste;
+	inversaTeste(1,2) = transpostaCofTeste(1,2) / determinanteTeste;
+	inversaTeste(1,3) = transpostaCofTeste(1,3) / determinanteTeste;
+	inversaTeste(2,0) = transpostaCofTeste(2,0) / determinanteTeste;
+	inversaTeste(2,1) = transpostaCofTeste(2,1) / determinanteTeste;
+	inversaTeste(2,2) = transpostaCofTeste(2,2) / determinanteTeste;
+	inversaTeste(2,3) = transpostaCofTeste(2,3) / determinanteTeste;
+	inversaTeste(3,0) = transpostaCofTeste(3,0) / determinanteTeste;
+	inversaTeste(3,1) = transpostaCofTeste(3,1) / determinanteTeste;
+	inversaTeste(3,2) = transpostaCofTeste(3,2) / determinanteTeste;
+	inversaTeste(3,3) = transpostaCofTeste(3,3) / determinanteTeste;
+
+	printf("Teste!!!\n\n");
+
+	printf("%.2f ", inversaTeste(0,0));
+	printf("%.2f ", inversaTeste(0,1));
+	printf("%.2f ", inversaTeste(0,2));
+	printf("%.2f\n", inversaTeste(0,3));
+	printf("%.2f ", inversaTeste(1,0));
+	printf("%.2f ", inversaTeste(1,1));
+	printf("%.2f ", inversaTeste(1,2));
+	printf("%.2f\n", inversaTeste(1,3));
+	printf("%.2f ", inversaTeste(2,0));
+	printf("%.2f ", inversaTeste(2,1));
+	printf("%.2f ", inversaTeste(2,2));
+	printf("%.2f\n", inversaTeste(2,3));
+	printf("%.2f ", inversaTeste(3,0));
+	printf("%.2f ", inversaTeste(3,1));
+	printf("%.2f ", inversaTeste(3,2));
+	printf("%.2f\n", inversaTeste(3,3));
+
+
+	transpose_matrix(inversaTeste, transpostaTeste);
+
+	printf("TRANSPOSTA!!!\n\n");
+
+	printf("%.2f ", transpostaTeste(0,0));
+	printf("%.2f ", transpostaTeste(0,1));
+	printf("%.2f ", transpostaTeste(0,2));
+	printf("%.2f\n", transpostaTeste(0,3));
+	printf("%.2f ", transpostaTeste(1,0));
+	printf("%.2f ", transpostaTeste(1,1));
+	printf("%.2f ", transpostaTeste(1,2));
+	printf("%.2f\n", transpostaTeste(1,3));
+	printf("%.2f ", transpostaTeste(2,0));
+	printf("%.2f ", transpostaTeste(2,1));
+	printf("%.2f ", transpostaTeste(2,2));
+	printf("%.2f\n", transpostaTeste(2,3));
+	printf("%.2f ", transpostaTeste(3,0));
+	printf("%.2f ", transpostaTeste(3,1));
+	printf("%.2f ", transpostaTeste(3,2));
+	printf("%.2f\n", transpostaTeste(3,3));
+
+
+
 }
+
+
+
 
 float** alocaMatriz()
    {
@@ -209,25 +237,25 @@ float cofator(int linha, int coluna, matrix_struct matrix){
 
 void matrixCofatores(matrix_struct original, matrix_struct &cofatores){
 	cofatores(0,0) = cofator(0,0,original);
-	cofatores(0,1) = cofator(0,1,original);
+	cofatores(0,1) = -cofator(0,1,original);
 	cofatores(0,2) = cofator(0,2,original);
-	cofatores(0,3) = cofator(0,3,original);
-	cofatores(1,0) = cofator(1,0,original);
+	cofatores(0,3) = -cofator(0,3,original);
+	cofatores(1,0) = -cofator(1,0,original);
 	cofatores(1,1) = cofator(1,1,original);
-	cofatores(1,2) = cofator(1,2,original);
+	cofatores(1,2) = -cofator(1,2,original);
 	cofatores(1,3) = cofator(1,3,original);
 	cofatores(2,0) = cofator(2,0,original);
-	cofatores(2,1) = cofator(2,1,original);
+	cofatores(2,1) = -cofator(2,1,original);
 	cofatores(2,2) = cofator(2,2,original);
-	cofatores(2,3) = cofator(2,3,original);
-	cofatores(3,0) = cofator(3,0,original);
+	cofatores(2,3) = -cofator(2,3,original);
+	cofatores(3,0) = -cofator(3,0,original);
 	cofatores(3,1) = cofator(3,1,original);
-	cofatores(3,2) = cofator(3,2,original);
+	cofatores(3,2) = -cofator(3,2,original);
 	cofatores(3,3) = cofator(3,3,original);
 }
 
-void transpose_matrix(const matrix_struct &original, matrix_struct &transposed) {
-	transposed = matrix_struct();
+void transpose_matrix(const matrix_struct original, matrix_struct &transposed) {
+	//transposed = matrix_struct();
 	for (int i = 0; i < original.cols_count; i++) {
 		for (int j = 0; j < original.rows_count; j++) {
 			transposed(j, i) = original(i, j);
