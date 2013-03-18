@@ -180,12 +180,7 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	printf("%.2f ", transpostaTeste(3,2));
 	printf("%.2f\n", transpostaTeste(3,3));
 
-
-
 }
-
-
-
 
 float** alocaMatriz()
    {
