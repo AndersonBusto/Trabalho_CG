@@ -30,14 +30,14 @@
 /* Coloque aqui a definição de suas rotinas auxiliares.
  */
 #if defined(ICGL_ASSIGNMENT_02_LOOK_AT)
-	void normalize(float axisx, float axisy, float axisz, float *normal_x, float *normal_y, float *normal_z);
+	void normalize(float *axisx, float *axisy, float *axisz);
     void crossProduct(float Ax, float Ay, float Az, float Bx, float By, float Bz, float *Rx, float *Ry, float *Rz);
 	float dotProduct(float Ax, float Ay, float Az, float Bx, float By, float Bz);
 #endif
 
 #if defined(ICGL_ASSIGNMENT_04_VERTEX_TRANSFORMATION)
 	void gaussian(matrix_struct a, int index[]);
-	void transpose_matrix(const matrix_struct original, matrix_struct & transposed);
+	void transpose_matrix(const matrix_struct &original, matrix_struct & transposed);
 	void inverse_matrix(const matrix_struct &original, matrix_struct & inverted);
 	float** alocaMatriz();
 	float det(matrix_struct matrix);

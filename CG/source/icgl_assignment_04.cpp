@@ -47,9 +47,9 @@
  *                          a norma deste vetor é igual a 1.0f.
  */
 void vertex_transformation(const location_struct &vertex_oc, const direction_struct &normal_oc, const matrix_struct &modelview_matrix, const matrix_struct &projection_matrix, location_struct &vertex_ec, location_struct &vertex_cc, direction_struct &unit_normal_ec) {
-    // Calcular 'vertex_ec'.
-    // Calcular 'vertex_cc'.
-    // Calcular 'unit_normal_ec'.
+     //Calcular 'vertex_ec'.
+     //Calcular 'vertex_cc'.
+     //Calcular 'unit_normal_ec'.
 
 	vertex_ec[0] = vertex_oc[0] * modelview_matrix(0,0) + vertex_oc[1] * modelview_matrix(0,1) + 
 		vertex_oc[2] * modelview_matrix(0,2) + vertex_oc[3] * modelview_matrix(0,3);
@@ -73,6 +73,8 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	matrix_struct cofatores = matrix_struct();
 	matrix_struct transpostaCof = matrix_struct();
 	matrix_struct inversa = matrix_struct();
+
+	//inverse_matrix(modelview_matrix, inversa);
 
 	float determinante = det(modelview_matrix);
 	matrixCofatores(modelview_matrix, cofatores);
@@ -98,11 +100,11 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	transpose_matrix(inversa, transposta);
 
 	unit_normal_ec[0] = normal_oc[0] * transposta(0,0) +  normal_oc[1] *  transposta(0,1) + 
-		normal_oc[2] *  transposta(0,2) +  normal_oc[3] *  transposta(0,3); 
+		normal_oc[2] *  transposta(0,2); 
 	unit_normal_ec[1] = normal_oc[0] * transposta(1,0) +  normal_oc[1] *  transposta(1,1) + 
-		normal_oc[2] *  transposta(1,2) +  normal_oc[3] *  transposta(1,3); 
+		normal_oc[2] *  transposta(1,2); 
 	unit_normal_ec[2] = normal_oc[0] * transposta(2,0) +  normal_oc[1] *  transposta(2,1) + 
-		normal_oc[2] *  transposta(2,2) +  normal_oc[3] *  transposta(2,3); 
+		normal_oc[2] *  transposta(2,2); 
 
 	unit_normal_ec[0] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
 	unit_normal_ec[1] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
@@ -182,6 +184,48 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 
 }
 
+void inverse_matrix(const matrix_struct &modelview_matrix, matrix_struct &matrizInvertida) {
+
+	float s0 = modelview_matrix(0,0) * modelview_matrix(1,1) - modelview_matrix(1,0) * modelview_matrix(0,1);
+	float s1 = modelview_matrix(0,0) * modelview_matrix(1,2) - modelview_matrix(1,0) * modelview_matrix(0,2);
+	float s2 = modelview_matrix(0,0) * modelview_matrix(1,3) - modelview_matrix(1,0) * modelview_matrix(0,3);
+	float s3 = modelview_matrix(0,1) * modelview_matrix(1,2) - modelview_matrix(1,1) * modelview_matrix(0,2);
+	float s4 = modelview_matrix(0,1) * modelview_matrix(1,3) - modelview_matrix(1,1) * modelview_matrix(0,3);
+	float s5 = modelview_matrix(0,2) * modelview_matrix(1,3) - modelview_matrix(1,2) * modelview_matrix(0,3);
+
+	float c5 = modelview_matrix(2,2) * modelview_matrix(3,3) - modelview_matrix(3,2) * modelview_matrix(2,3);
+	float c4 = modelview_matrix(2,1) * modelview_matrix(3,3) - modelview_matrix(3,1) * modelview_matrix(2,3);
+	float c3 = modelview_matrix(2,1) * modelview_matrix(3,2) - modelview_matrix(3,1) * modelview_matrix(2,2);
+	float c2 = modelview_matrix(2,0) * modelview_matrix(3,3) - modelview_matrix(3,0) * modelview_matrix(2,3);
+	float c1 = modelview_matrix(2,0) * modelview_matrix(3,2) - modelview_matrix(3,0) * modelview_matrix(2,2);
+	float c0 = modelview_matrix(2,0) * modelview_matrix(3,1) - modelview_matrix(3,0) * modelview_matrix(2,1);
+    
+
+    // Should check for 0 determinant
+
+    float invdet  = 1 / (s0 * c5 - s1 * c4 + s2 * c3 + s3 * c2 - s4 * c1 + s5 * c0);
+
+	matrizInvertida(0,0) = ( modelview_matrix(1,1) * c5 -  modelview_matrix(1,2) * c4 +  modelview_matrix(1,3) * c3) * invdet;
+	matrizInvertida(0,1) = ( -modelview_matrix(0,1) * c5 +  modelview_matrix(0,2) * c4 -  modelview_matrix(0,3) * c3) * invdet;
+	matrizInvertida(0,2) = ( modelview_matrix(3,1) * s5 -  modelview_matrix(3,2) * s4 +  modelview_matrix(3,3) * s3) * invdet;
+	matrizInvertida(0,3) = ( -modelview_matrix(2,1) * s5 +  modelview_matrix(2,2) * s4 -  modelview_matrix(2,3) * s3) * invdet;
+
+	matrizInvertida(1,0) = (- modelview_matrix(1,0) * c5 +  modelview_matrix(1,2) * c2 -  modelview_matrix(1,3) * c1) * invdet;
+	matrizInvertida(1,1) = ( modelview_matrix(0,0) * c5 -  modelview_matrix(0,2) * c2 +  modelview_matrix(0,3) * c1) * invdet;
+	matrizInvertida(1,2) = (- modelview_matrix(3,0) * s5 +  modelview_matrix(3,2) * s2 -  modelview_matrix(3,3) * s1) * invdet;
+	matrizInvertida(1,3) = ( modelview_matrix(2,0) * s5 -  modelview_matrix(2,2) * s2 +  modelview_matrix(2,3) * s1) * invdet;
+	
+	matrizInvertida(2,0) = ( modelview_matrix(1,0) * c4 -  modelview_matrix(1,1) * c2 +  modelview_matrix(1,3) * c0) * invdet;
+	matrizInvertida(2,1) = ( -modelview_matrix(0,0) * c4 +  modelview_matrix(0,1) * c2 -  modelview_matrix(0,3) *c0) * invdet;
+	matrizInvertida(2,2) = ( modelview_matrix(3,0) * s4 -  modelview_matrix(3,1) * s2 +  modelview_matrix(3,3) * s0) * invdet;
+	matrizInvertida(2,3) = ( -modelview_matrix(2,0) * s4 +  modelview_matrix(2,1) * s2 - modelview_matrix(2,3) * s0) * invdet;
+   
+	matrizInvertida(3,0) = ( -modelview_matrix(1,0) * c3 + modelview_matrix(1,1) * c1 -  modelview_matrix(1,2) * c0) * invdet;
+	matrizInvertida(3,1) = ( modelview_matrix(0,0) * c3 -  modelview_matrix(0,1) * c1 +  modelview_matrix(0,2) * c0) * invdet;
+	matrizInvertida(3,2) = ( -modelview_matrix(3,0) * s3 +  modelview_matrix(3,1) * s1 -  modelview_matrix(3,2) * s0) * invdet;
+	matrizInvertida(3,3) = ( modelview_matrix(2,0) * s3 -  modelview_matrix(2,1) * s1 +  modelview_matrix(2,2) * s0) * invdet;
+}
+
 float** alocaMatriz()
    {
        float **p; 
@@ -249,11 +293,11 @@ void matrixCofatores(matrix_struct original, matrix_struct &cofatores){
 	cofatores(3,3) = cofator(3,3,original);
 }
 
-void transpose_matrix(const matrix_struct original, matrix_struct &transposed) {
+void transpose_matrix(const matrix_struct &original, matrix_struct &transposed) {
 	//transposed = matrix_struct();
 	for (int i = 0; i < original.cols_count; i++) {
 		for (int j = 0; j < original.rows_count; j++) {
-			transposed(j, i) = original(i, j);
+			transposed(i, j) = original(j, i);
 		}
 	}	
 }

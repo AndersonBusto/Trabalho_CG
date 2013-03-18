@@ -42,24 +42,24 @@
  */
 void make_rotation_matrix(float angle_degrees, float axisx, float axisy, float axisz, matrix_struct &rotation_matrix) {
     // Calcular 'rotation_matrix'.
-	float module = sqrt(pow(axisx, 2) + pow(axisy, 2) + pow(axisz, 2));
+	float module = sqrtf(pow(axisx, 2) + pow(axisy, 2) + pow(axisz, 2));
 	float normal_x = axisx / module;
 	float normal_y = axisy / module;
 	float normal_z = axisz / module;
-	angle_degrees = angle_degrees /-180*pi;
+	angle_degrees = angle_degrees * pi/ 180;
 
 	rotation_matrix(0,0) = cos(angle_degrees) + (1 - cos(angle_degrees)) * pow(normal_x, 2);
-	rotation_matrix(0,1) = normal_y * normal_x * (1 - cos(angle_degrees)) + normal_z* sin(angle_degrees);
-	rotation_matrix(0,2) = normal_z * normal_x * (1- cos(angle_degrees)) - normal_y * sin(angle_degrees);
+	rotation_matrix(0,1) = normal_y * normal_x * (1 - cos(angle_degrees)) - normal_z* sin(angle_degrees);
+	rotation_matrix(0,2) = normal_z * normal_x * (1- cos(angle_degrees)) + normal_y * sin(angle_degrees);
 	rotation_matrix(0,3) = 0;
 
-	rotation_matrix(1,0) = normal_x * normal_y * (1- cos(angle_degrees)) - normal_z * sin(angle_degrees);
+	rotation_matrix(1,0) = normal_x * normal_y * (1- cos(angle_degrees)) + normal_z * sin(angle_degrees);
 	rotation_matrix(1,1) = cos(angle_degrees) + (1- cos(angle_degrees)) * pow(normal_y, 2);
-	rotation_matrix(1,2) = normal_z * normal_y * (1- cos(angle_degrees)) + normal_x * sin(angle_degrees);
+	rotation_matrix(1,2) = normal_z * normal_y * (1- cos(angle_degrees)) - normal_x * sin(angle_degrees);
 	rotation_matrix(1,3) = 0;
 
-	rotation_matrix(2,0) = normal_x * normal_z * (1- cos(angle_degrees)) + normal_y * sin(angle_degrees);
-	rotation_matrix(2,1) = normal_y * normal_z * (1- cos(angle_degrees)) - normal_x * sin(angle_degrees);
+	rotation_matrix(2,0) = normal_x * normal_z * (1- cos(angle_degrees)) - normal_y * sin(angle_degrees);
+	rotation_matrix(2,1) = normal_y * normal_z * (1- cos(angle_degrees)) + normal_x * sin(angle_degrees);
 	rotation_matrix(2,2) = cos(angle_degrees) + (1- cos(angle_degrees)) * pow(normal_z, 2);
 	rotation_matrix(2,3) = 0;
 

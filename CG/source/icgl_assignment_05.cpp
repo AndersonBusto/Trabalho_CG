@@ -59,7 +59,10 @@ void vertex_lighting(const location_struct &vertex_ec, const direction_struct &u
 
 	if(lighting_enabled) {
 		//Diffuse
-		normalize(light_ec.x - vertex_ec.x, light_ec.y - vertex_ec.y, light_ec.z - vertex_ec.z, &S_x, &S_y, &S_z);
+		S_x = light_ec.x - vertex_ec.x;
+		S_y = light_ec.y - vertex_ec.y;
+		S_z = light_ec.z - vertex_ec.z;
+		normalize( &S_x, &S_y, &S_z);
 		float dotProductDiffuse = dotProduct (S_x, S_y, S_z, unit_normal_ec.x, unit_normal_ec.y, unit_normal_ec.z);
 
 		color_struct lightDiffuse = color_struct();
@@ -69,16 +72,22 @@ void vertex_lighting(const location_struct &vertex_ec, const direction_struct &u
 		lightDiffuse.a = light_diffuse.a * material_diffuse.a * maxV(dotProductDiffuse, 0.0f);
 
 		//Specular
-		normalize(- vertex_ec.x, - vertex_ec.y, - vertex_ec.z, &V_x, &V_y, &V_z);
+		V_x = - vertex_ec.x;
+		V_y = - vertex_ec.y;
+		V_z = - vertex_ec.z;
+		normalize(&V_x, &V_y, &V_z);
 
-		normalize(S_x + V_x, S_y + V_y, S_z + V_z, &H_x, &H_y, &H_z);
+		H_x = S_x + V_x;
+		H_y =  S_y + V_y;
+		H_z = S_z + V_z;
+		normalize(&H_x, &H_y, &H_z);
 		float dotProductSpecular = dotProduct(H_x, H_y, H_z, unit_normal_ec.x, unit_normal_ec.y, unit_normal_ec.z);
 
 		color_struct lightSpecular = color_struct();
 		lightSpecular.r = light_specular.r * material_specular.r * pow(maxV(dotProductSpecular, 0.0f), material_shininess);
 		lightSpecular.g = light_specular.g * material_specular.g * pow(maxV(dotProductSpecular, 0.0f), material_shininess);
 		lightSpecular.b = light_specular.b * material_specular.b * pow(maxV(dotProductSpecular, 0.0f), material_shininess);
-		lightSpecular.a = light_specular.a * material_specular.a * pow(maxV(dotProductSpecular, 0.0f)	, material_shininess);
+		lightSpecular.a = light_specular.a * material_specular.a * pow(maxV(dotProductSpecular, 0.0f), material_shininess);
 
 		//Ambient
 		color_struct lightAmbient = color_struct();
@@ -98,7 +107,7 @@ void vertex_lighting(const location_struct &vertex_ec, const direction_struct &u
 }
 
 float maxV(float a, float b) {
-	return ((a) > (b)) ? (a) : (b);
+	return a > b ? a : b;
 }
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 
