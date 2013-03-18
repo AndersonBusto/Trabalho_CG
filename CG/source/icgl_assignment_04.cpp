@@ -100,11 +100,11 @@ void vertex_transformation(const location_struct &vertex_oc, const direction_str
 	transpose_matrix(inversa, transposta);
 
 	unit_normal_ec[0] = normal_oc[0] * transposta(0,0) +  normal_oc[1] *  transposta(0,1) + 
-		normal_oc[2] *  transposta(0,2); 
+		normal_oc[2] *  transposta(0,2) + normal_oc[3] *  transposta(0,3); 
 	unit_normal_ec[1] = normal_oc[0] * transposta(1,0) +  normal_oc[1] *  transposta(1,1) + 
-		normal_oc[2] *  transposta(1,2); 
+		normal_oc[2] *  transposta(1,2)  + normal_oc[3] *  transposta(1,3); ; 
 	unit_normal_ec[2] = normal_oc[0] * transposta(2,0) +  normal_oc[1] *  transposta(2,1) + 
-		normal_oc[2] *  transposta(2,2); 
+		normal_oc[2] *  transposta(2,2)  + normal_oc[3] *  transposta(2,3); ; 
 
 	unit_normal_ec[0] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
 	unit_normal_ec[1] /= sqrt(pow(unit_normal_ec[0], 2) + pow(unit_normal_ec[1], 2) + pow(unit_normal_ec[2], 2));
