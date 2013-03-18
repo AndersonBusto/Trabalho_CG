@@ -48,6 +48,33 @@
  */
 void make_segments(const std::vector<location_struct> &vertices_cc, const std::vector<color_struct> &vertices_colors, const std::vector<texcoord_struct> &vertices_texcoords, const std::vector<int> &vertices_texture_ids, std::vector<segment_struct> &primitives) {
     // Calcular 'primitives'.
+	
+	for (int i = 0; i < vertices_cc.size(); i += 2) {
+		segment_struct aux = segment_struct();
+		aux.texture_id = vertices_texture_ids[i];
+		aux.color[i].r = vertices_colors[i].r;
+		aux.color[i].g = vertices_colors[i].g;
+		aux.color[i].b = vertices_colors[i].b;
+		aux.color[i].a = vertices_colors[i].a;
+		aux.texcoord[i].u = vertices_texcoords[i].u;
+		aux.texcoord[i].v = vertices_texcoords[i].v;
+		aux.vertex_cc[i].x = vertices_cc[i].x;
+		aux.vertex_cc[i].y = vertices_cc[i].y;
+		aux.vertex_cc[i].z = vertices_cc[i].z;
+		aux.vertex_cc[i].w = vertices_cc[i].w;
+		
+		aux.color[i + 1].r = vertices_colors[i + 1].r;
+		aux.color[i + 1].g = vertices_colors[i + 1].g;
+		aux.color[i + 1].b = vertices_colors[i + 1].b;
+		aux.color[i + 1].a = vertices_colors[i + 1].a;
+		aux.texcoord[i + 1].u = vertices_texcoords[i + 1].u;
+		aux.texcoord[i + 1].v = vertices_texcoords[i + 1].v;
+		aux.vertex_cc[i + 1].x = vertices_cc[i + 1].x;
+		aux.vertex_cc[i + 1].y = vertices_cc[i + 1].y;
+		aux.vertex_cc[i + 1].z = vertices_cc[i + 1].z;
+		aux.vertex_cc[i + 1].w = vertices_cc[i + 1].w;
+		primitives.push_back(aux);  
+	}
 }
 
 /* Monta triângulos a partir das listas de propriedades de vértices informadas. Esta rotina também é responsável por realizar
@@ -73,6 +100,17 @@ void make_segments(const std::vector<location_struct> &vertices_cc, const std::v
  */
 void make_triangles(const std::vector<location_struct> &vertices_cc, const std::vector<color_struct> &vertices_colors, const std::vector<texcoord_struct> &vertices_texcoords, const std::vector<int> &vertices_texture_ids, bool backface_culling_enabled, orientation_type front_face_orientation, std::vector<triangle_struct> &primitives) {
     // Calcular 'primitives'.
+	/*float p_x ,p_y, p_z;
+	if(backface_culling_enabled) {
+		for (int i = 0; i < vertices_cc.size; i+=3) {			
+			location_struct  p1  = vertices_cc[i];
+			location_struct   p2  = vertices_cc[i + 1];
+			location_struct   p3  = vertices_cc[i + 2];
+			crossProduct(p3.x - p1.x, p3.y - p1.y, p3.z - p1.z, p3.x - p2.x, p3.y - p2.y, p3.z - p2.z, &p_x , &p_y, &p_z);
+			if(p_z < 0.0f)
+
+		}
+	}*/
 }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
