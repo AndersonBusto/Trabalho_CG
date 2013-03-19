@@ -43,19 +43,29 @@
  */
 void make_perspective_matrix(float fovy, float aspect, float znear, float zfar, matrix_struct &perspective_matrix) {
     // Calcular 'perspective_matrix'.
-	double D2R = pi / 180.0;
-    double yScale = 1.0 / tan(D2R * fovy / 2);
-    double xScale = yScale / aspect;
-    double nearmfar = znear - zfar;
-	perspective_matrix = matrix_struct(xScale, 0, 0, 0, 0, yScale, 0, 0, 0, 0,(zfar + znear)/nearmfar, -1, 0, 0 ,2*zfar*znear/nearmfar, 0);
-    
-	double m[] = {
-        xScale, 0, 0, 0,
-        0, yScale, 0, 0,
-        0, 0, (zfar + znear) / nearmfar, -1,
-        0, 0, 2*zfar*znear / nearmfar, 0 
-    };
+	float y= 1.0f / tan( pi / 180.0f * fovy / 2);
+    float x = y / aspect;
+    float difference = znear - zfar;
 	
+	perspective_matrix(0,0) = x;
+	perspective_matrix(0,1) = 0.0f;
+	perspective_matrix(0,2) = 0.0f;
+	perspective_matrix(0,3) = 0.0f;
+
+	perspective_matrix(1,0) = 0.0f;
+	perspective_matrix(1,1) = y;
+	perspective_matrix(1,2) = 0.0f;
+	perspective_matrix(1,3) = 0.0f;
+
+	perspective_matrix(2,0) = 0.0f;
+	perspective_matrix(2,1) = 0.0f;
+	perspective_matrix(2,2) = (zfar + znear)/difference;
+	perspective_matrix(2,3) = 2 * zfar * znear/difference;
+
+	perspective_matrix(3,0) = 0.0f;
+	perspective_matrix(3,1) = 0.0f;
+	perspective_matrix(3,2) = -1.0f;
+	perspective_matrix(3,3) = 0.0f;
 }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////

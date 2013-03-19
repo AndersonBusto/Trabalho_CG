@@ -40,7 +40,7 @@
  */
 void give_me_your_name(std::string &name) {
     // Atribuir texto a 'name'.
-	name = "Anderson e Roberto";
+	name = "Anderson Busto e Roberto Sampaio";
 }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////

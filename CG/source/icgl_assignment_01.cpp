@@ -42,25 +42,24 @@
  */
 void make_rotation_matrix(float angle_degrees, float axisx, float axisy, float axisz, matrix_struct &rotation_matrix) {
     // Calcular 'rotation_matrix'.
-	float module = sqrtf(pow(axisx, 2) + pow(axisy, 2) + pow(axisz, 2));
-	float normal_x = axisx / module;
-	float normal_y = axisy / module;
-	float normal_z = axisz / module;
-	angle_degrees = angle_degrees * pi/ 180;
+	direction_struct point = direction_struct(axisx, axisy, axisz);
+	normalize(point);
+	
+	angle_degrees = angle_degrees * pi / 180;
 
-	rotation_matrix(0,0) = cos(angle_degrees) + (1 - cos(angle_degrees)) * pow(normal_x, 2);
-	rotation_matrix(0,1) = normal_y * normal_x * (1 - cos(angle_degrees)) - normal_z* sin(angle_degrees);
-	rotation_matrix(0,2) = normal_z * normal_x * (1- cos(angle_degrees)) + normal_y * sin(angle_degrees);
+	rotation_matrix(0,0) = cos(angle_degrees) + (1 - cos(angle_degrees)) * pow(point.x, 2);
+	rotation_matrix(0,1) = point.y * point.x * (1 - cos(angle_degrees)) - point.z* sin(angle_degrees);
+	rotation_matrix(0,2) = point.z * point.x * (1- cos(angle_degrees)) + point.y * sin(angle_degrees);
 	rotation_matrix(0,3) = 0;
 
-	rotation_matrix(1,0) = normal_x * normal_y * (1- cos(angle_degrees)) + normal_z * sin(angle_degrees);
-	rotation_matrix(1,1) = cos(angle_degrees) + (1- cos(angle_degrees)) * pow(normal_y, 2);
-	rotation_matrix(1,2) = normal_z * normal_y * (1- cos(angle_degrees)) - normal_x * sin(angle_degrees);
+	rotation_matrix(1,0) = point.x * point.y * (1- cos(angle_degrees)) + point.z * sin(angle_degrees);
+	rotation_matrix(1,1) = cos(angle_degrees) + (1- cos(angle_degrees)) * pow(point.y, 2);
+	rotation_matrix(1,2) = point.z * point.y * (1- cos(angle_degrees)) - point.x * sin(angle_degrees);
 	rotation_matrix(1,3) = 0;
 
-	rotation_matrix(2,0) = normal_x * normal_z * (1- cos(angle_degrees)) - normal_y * sin(angle_degrees);
-	rotation_matrix(2,1) = normal_y * normal_z * (1- cos(angle_degrees)) + normal_x * sin(angle_degrees);
-	rotation_matrix(2,2) = cos(angle_degrees) + (1- cos(angle_degrees)) * pow(normal_z, 2);
+	rotation_matrix(2,0) = point.x * point.z * (1- cos(angle_degrees)) - point.y * sin(angle_degrees);
+	rotation_matrix(2,1) = point.y * point.z * (1- cos(angle_degrees)) + point.x * sin(angle_degrees);
+	rotation_matrix(2,2) = cos(angle_degrees) + (1- cos(angle_degrees)) * pow(point.z, 2);
 	rotation_matrix(2,3) = 0;
 
 	rotation_matrix(3,0) = 0;
@@ -129,6 +128,15 @@ void make_translation_matrix(float deltax, float deltay, float deltaz, matrix_st
 	translation_matrix(3,1) = 0;
 	translation_matrix(3,2) = 0;
 	translation_matrix(3,3) = 1;
+}
+
+void normalize (direction_struct &vector) {
+	float module = sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
+	if(module > 0.0) {
+		vector.x /= module;
+	    vector.y/= module;
+		vector.z /= module;
+	}
 }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////

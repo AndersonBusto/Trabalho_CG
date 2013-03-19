@@ -29,20 +29,23 @@
 
 /* Coloque aqui a definição de suas rotinas auxiliares.
  */
+
+#if defined(ICGL_ASSIGNMENT_01_ROTATION_SCALE_TRANSLATION)
+	void normalize(direction_struct &vector);
+#endif
+
 #if defined(ICGL_ASSIGNMENT_02_LOOK_AT)
-	void normalize(float *axisx, float *axisy, float *axisz);
-    void crossProduct(float Ax, float Ay, float Az, float Bx, float By, float Bz, float *Rx, float *Ry, float *Rz);
-	float dotProduct(float Ax, float Ay, float Az, float Bx, float By, float Bz);
+    void crossProduct(direction_struct a, direction_struct b, direction_struct &r);
+	float dotProduct(direction_struct a, direction_struct b);
 #endif
 
 #if defined(ICGL_ASSIGNMENT_04_VERTEX_TRANSFORMATION)
-	void gaussian(matrix_struct a, int index[]);
 	void transpose_matrix(const matrix_struct &original, matrix_struct & transposed);
-	void inverse_matrix(const matrix_struct &original, matrix_struct & inverted);
-	float** alocaMatriz();
-	float det(matrix_struct matrix);
+	void inverse_matrix(const matrix_struct &original, matrix_struct &inverted);
+	float** alocateMatriz();
+	float det4(matrix_struct matrix);
 	float det3(float** matrix);
-	float cofator(int linha, int coluna, matrix_struct matrix);
+	float cofator(int row, int column, matrix_struct matrix);
 	void matrixCofatores(matrix_struct original, matrix_struct &cofatores);
 #endif
 

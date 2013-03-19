@@ -53,17 +53,18 @@
  */
 void vertex_lighting(const location_struct &vertex_ec, const direction_struct &unit_normal_ec, const color_struct &base_color, bool lighting_enabled, const color_struct &material_ambient, const color_struct &material_diffuse, const color_struct &material_specular, float material_shininess, const location_struct &light_ec, const color_struct &light_ambient, const color_struct &light_diffuse, const color_struct &light_specular, color_struct &vertex_color) {
     // Calcular 'vertex_color'.
-	float S_x, S_y, S_z;
-	float V_x, V_y, V_z;
-	float H_x, H_y, H_z;
+	direction_struct S = direction_struct();
+	direction_struct V = direction_struct();
+	direction_struct H = direction_struct();
 
 	if(lighting_enabled) {
-		//Diffuse
-		S_x = light_ec.x - vertex_ec.x;
-		S_y = light_ec.y - vertex_ec.y;
-		S_z = light_ec.z - vertex_ec.z;
-		normalize( &S_x, &S_y, &S_z);
-		float dotProductDiffuse = dotProduct (S_x, S_y, S_z, unit_normal_ec.x, unit_normal_ec.y, unit_normal_ec.z);
+		//Diffuse		
+		S.x = light_ec.x - vertex_ec.x;
+		S.y = light_ec.y - vertex_ec.y;
+		S.z = light_ec.z - vertex_ec.z;
+
+		normalize(S);
+		float dotProductDiffuse = dotProduct (S, unit_normal_ec);
 
 		color_struct lightDiffuse = color_struct();
 		lightDiffuse.r = light_diffuse.r * material_diffuse.r * maxV(dotProductDiffuse, 0.0f);
@@ -72,16 +73,16 @@ void vertex_lighting(const location_struct &vertex_ec, const direction_struct &u
 		lightDiffuse.a = light_diffuse.a * material_diffuse.a * maxV(dotProductDiffuse, 0.0f);
 
 		//Specular
-		V_x = - vertex_ec.x;
-		V_y = - vertex_ec.y;
-		V_z = - vertex_ec.z;
-		normalize(&V_x, &V_y, &V_z);
+		V.x = - vertex_ec.x;
+		V.y = - vertex_ec.y;
+		V.z = - vertex_ec.z;
+		normalize(V);
 
-		H_x = S_x + V_x;
-		H_y =  S_y + V_y;
-		H_z = S_z + V_z;
-		normalize(&H_x, &H_y, &H_z);
-		float dotProductSpecular = dotProduct(H_x, H_y, H_z, unit_normal_ec.x, unit_normal_ec.y, unit_normal_ec.z);
+		H.x = S.x + V.x;
+		H.y =  S.y + V.y;
+		H.z = S.z + V.z;
+		normalize(H);
+		float dotProductSpecular = dotProduct(H, unit_normal_ec);
 
 		color_struct lightSpecular = color_struct();
 		lightSpecular.r = light_specular.r * material_specular.r * pow(maxV(dotProductSpecular, 0.0f), material_shininess);
