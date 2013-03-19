@@ -48,31 +48,26 @@
  */
 void make_segments(const std::vector<location_struct> &vertices_cc, const std::vector<color_struct> &vertices_colors, const std::vector<texcoord_struct> &vertices_texcoords, const std::vector<int> &vertices_texture_ids, std::vector<segment_struct> &primitives) {
     // Calcular 'primitives'.
+	segment_struct aux = segment_struct();
 	
-	for (int i = 0; i < vertices_cc.size(); i += 2) {
-		segment_struct aux = segment_struct();
-		aux.texture_id = vertices_texture_ids[i];
-		aux.color[i].r = vertices_colors[i].r;
-		aux.color[i].g = vertices_colors[i].g;
-		aux.color[i].b = vertices_colors[i].b;
-		aux.color[i].a = vertices_colors[i].a;
-		aux.texcoord[i].u = vertices_texcoords[i].u;
-		aux.texcoord[i].v = vertices_texcoords[i].v;
-		aux.vertex_cc[i].x = vertices_cc[i].x;
-		aux.vertex_cc[i].y = vertices_cc[i].y;
-		aux.vertex_cc[i].z = vertices_cc[i].z;
-		aux.vertex_cc[i].w = vertices_cc[i].w;
-		
-		aux.color[i + 1].r = vertices_colors[i + 1].r;
-		aux.color[i + 1].g = vertices_colors[i + 1].g;
-		aux.color[i + 1].b = vertices_colors[i + 1].b;
-		aux.color[i + 1].a = vertices_colors[i + 1].a;
-		aux.texcoord[i + 1].u = vertices_texcoords[i + 1].u;
-		aux.texcoord[i + 1].v = vertices_texcoords[i + 1].v;
-		aux.vertex_cc[i + 1].x = vertices_cc[i + 1].x;
-		aux.vertex_cc[i + 1].y = vertices_cc[i + 1].y;
-		aux.vertex_cc[i + 1].z = vertices_cc[i + 1].z;
-		aux.vertex_cc[i + 1].w = vertices_cc[i + 1].w;
+	for (int i = 0; i < vertices_cc.size(); i+= 2) {		
+		for (int j = 0; j < 2; j++) {
+			aux.texture_id = vertices_texture_ids[i+j];	
+			aux.color[j].r = vertices_colors[i+j].r;
+			aux.color[j].g = vertices_colors[i+j].g;
+			aux.color[j].b = vertices_colors[i+j].b;
+			aux.color[j].a = vertices_colors[i+j].a;
+			aux.texcoord[j].u = vertices_texcoords[i+j].u;
+			aux.texcoord[j].v = vertices_texcoords[i+j].v;
+			aux.vertex_cc[j].x = vertices_cc[i+j].x;
+			aux.vertex_cc[j].y = vertices_cc[i+j].y;
+			aux.vertex_cc[j].z = vertices_cc[i+j].z;
+			aux.vertex_cc[j].w = vertices_cc[i+j].w;
+			aux.color[j].r = vertices_colors[i+j].r;
+			aux.color[j].g = vertices_colors[i+j].g;
+			aux.color[j].b = vertices_colors[i+j].b;
+			aux.color[j].a = vertices_colors[i+j].a;
+		}
 		primitives.push_back(aux);  
 	}
 }
@@ -101,88 +96,71 @@ void make_segments(const std::vector<location_struct> &vertices_cc, const std::v
 void make_triangles(const std::vector<location_struct> &vertices_cc, const std::vector<color_struct> &vertices_colors, const std::vector<texcoord_struct> &vertices_texcoords, const std::vector<int> &vertices_texture_ids, bool backface_culling_enabled, orientation_type front_face_orientation, std::vector<triangle_struct> &primitives) {
     // Calcular 'primitives'.
 	float p_x ,p_y, p_z;
-	bool pertence = true;
+	location_struct p1, p2, p3;
+	bool test_vertex = true;
 
-	triangle_struct triangle = triangle_struct();
 	std::vector<triangle_struct> aux;
-
-	for (int i = 0; i < vertices_cc.size(); i += 3) {		
-		triangle.texture_id = vertices_texture_ids[i];
-		triangle.vertex_cc[i].x = vertices_cc[i].x;
-		triangle.vertex_cc[i].y = vertices_cc[i].y;
-		triangle.vertex_cc[i].z = vertices_cc[i].z;
-		triangle.vertex_cc[i].w = vertices_cc[i].w;
-		triangle.color[i].r = vertices_colors[i].r;
-		triangle.color[i].g = vertices_colors[i].g;
-		triangle.color[i].b = vertices_colors[i].b;
-		triangle.color[i].a = vertices_colors[i].a;
-		triangle.texcoord[i].u = vertices_texcoords[i].u;
-		triangle.texcoord[i].v = vertices_texcoords[i].v;
-		
-		triangle.vertex_cc[i + 1].x = vertices_cc[i + 1].x;
-		triangle.vertex_cc[i + 1].y = vertices_cc[i + 1].y;
-		triangle.vertex_cc[i + 1].z = vertices_cc[i + 1].z;
-		triangle.vertex_cc[i + 1].w = vertices_cc[i + 1].w;
-		triangle.color[i + 1].r = vertices_colors[i + 1].r;
-		triangle.color[i + 1].g = vertices_colors[i + 1].g;
-		triangle.color[i + 1].b = vertices_colors[i + 1].b;
-		triangle.color[i + 1].a = vertices_colors[i + 1].a;
-		triangle.texcoord[i + 1].u = vertices_texcoords[i + 1].u;
-		triangle.texcoord[i + 1].v = vertices_texcoords[i + 1].v;
+	triangle_struct triangle = triangle_struct();
 	
-		triangle.vertex_cc[i + 2].x = vertices_cc[i + 2].x;
-		triangle.vertex_cc[i + 2].y = vertices_cc[i + 2].y;
-		triangle.vertex_cc[i + 2].z = vertices_cc[i + 2].z;
-		triangle.vertex_cc[i + 2].w = vertices_cc[i + 2].w;
-		triangle.color[i + 2].r = vertices_colors[i + 2].r;
-		triangle.color[i + 2].g = vertices_colors[i + 2].g;
-		triangle.color[i + 2].b = vertices_colors[i + 2].b;
-		triangle.color[i + 2].a = vertices_colors[i + 2].a;
-		triangle.texcoord[i + 2].u = vertices_texcoords[i + 2].u;
-		triangle.texcoord[i + 2].v = vertices_texcoords[i + 2].v;
-		
-		if(!((vertices_cc[i].x > -vertices_cc[i].w && vertices_cc[i].x < vertices_cc[i].w)
-			&& (vertices_cc[i].y > -vertices_cc[i].w && vertices_cc[i].y < vertices_cc[i].w)
-			&& (vertices_cc[i].z > -vertices_cc[i].w && vertices_cc[i].z < vertices_cc[i].w))
-			&& pertence)
-			pertence = false;
-		if(i % 3 == 2)
-			if(pertence){
-				aux.push_back(triangle);
-			}else
-				pertence = true;
+	for (int i = 0; i < vertices_cc.size(); i+= 3) {		
+		for (int j = 0; j < 3; j++) {
+			triangle.texture_id = vertices_texture_ids[i+j];	
+			triangle.color[j].r = vertices_colors[i+j].r;
+			triangle.color[j].g = vertices_colors[i+j].g;
+			triangle.color[j].b = vertices_colors[i+j].b;
+			triangle.color[j].a = vertices_colors[i+j].a;
+			triangle.texcoord[j].u = vertices_texcoords[i+j].u;
+			triangle.texcoord[j].v = vertices_texcoords[i+j].v;
+			triangle.vertex_cc[j].x = vertices_cc[i+j].x;
+			triangle.vertex_cc[j].y = vertices_cc[i+j].y;
+			triangle.vertex_cc[j].z = vertices_cc[i+j].z;
+			triangle.vertex_cc[j].w = vertices_cc[i+j].w;
+			triangle.color[j].r = vertices_colors[i+j].r;
+			triangle.color[j].g = vertices_colors[i+j].g;
+			triangle.color[j].b = vertices_colors[i+j].b;
+			triangle.color[j].a = vertices_colors[i+j].a;
+				
+			if(!(triangle.vertex_cc[j].x > -triangle.vertex_cc[j].w && triangle.vertex_cc[j].x < triangle.vertex_cc[j].w))
+				test_vertex = false;
+			if(!(triangle.vertex_cc[j].y > -triangle.vertex_cc[j].w && triangle.vertex_cc[j].y < triangle.vertex_cc[j].w))
+				test_vertex = false;
+			if(!(triangle.vertex_cc[j].z > -triangle.vertex_cc[j].w && triangle.vertex_cc[j].z < triangle.vertex_cc[j].w))
+				test_vertex = false;
+		}
+
+		if(test_vertex)
+			aux.push_back(triangle);
+		else
+			test_vertex = true;		
 	}
 
 	if(backface_culling_enabled) {
-		if (front_face_orientation == cw_orientation) {
-			for (int i = 0; i < primitives.size(); i++) {
-				location_struct  p1  = aux[i].vertex_cc[0];
-				location_struct  p2  = aux[i].vertex_cc[1];
-				location_struct  p3  = aux[i].vertex_cc[2];
-				crossProduct(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z, p3.z - p1.z, p3.y - p1.y, p3.z - p1.z, &p_x , &p_y, &p_z);
-			
-				float angulo = dotProduct(p_x, p_y, p_z, p1.x, p1.y, p1.z);
-				if(angulo < 0)
+		
+		for (int i = 0; i < aux.size(); i++) {
+			p1  = aux[i].vertex_cc[0];
+			p2  = aux[i].vertex_cc[1];
+			p3  = aux[i].vertex_cc[2];
+			crossProduct(p2.x - p1.x,p2.y - p1.y , p2.z - p1.z ,p3.x - p1.x, p3.y - p1.y,p3.z - p1.z, &p_x , &p_y, &p_z);
+
+			float angle = dotProduct(p_x, p_y, p_z, p2.x, p2.y, p2.z);
+
+			if (front_face_orientation == cw_orientation) {				
+				if(angle < 0)
 					primitives.push_back(aux[i]);
-			}
-		} else {
-			for (int i = 0; i < primitives.size(); i++) {
-				location_struct  p1  = aux[i].vertex_cc[0];
-				location_struct  p2  = aux[i].vertex_cc[1];
-				location_struct  p3  = aux[i].vertex_cc[2];
-				crossProduct(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z, p3.z - p1.z, p3.y - p1.y, p3.z - p1.z, &p_x , &p_y, &p_z);
-			
-				float angulo = dotProduct(p_x, p_y, p_z, p1.x, p1.y, p1.z);
-				if(angulo > 0)
+			} else {
+				if(angle > 0)
 					primitives.push_back(aux[i]);
-			}
+			}			
 		}
+
 	} else {
 		for(int i = 0; i < aux.size(); i++) {
 			primitives.push_back(aux[i]);
 		}
 	}
+	
 }
+
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 
