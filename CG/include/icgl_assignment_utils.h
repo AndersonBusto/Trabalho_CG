@@ -30,28 +30,61 @@
 /* Coloque aqui a definição de suas rotinas auxiliares.
  */
 
-#if defined(ICGL_ASSIGNMENT_01_ROTATION_SCALE_TRANSLATION)
-	void normalize(direction_struct &vector);
-#endif
+/*
+	Normaliza o vetor
+*/
+void normalize(direction_struct &vector);
 
-#if defined(ICGL_ASSIGNMENT_02_LOOK_AT)
-    void crossProduct(direction_struct a, direction_struct b, direction_struct &r);
-	float dotProduct(direction_struct a, direction_struct b);
-#endif
+/*
+	Produto vetorial entre 2 vetores
+	Retorno: direction_struct &r
+*/
+void crossProduct(direction_struct a, direction_struct b, direction_struct &r);
 
-#if defined(ICGL_ASSIGNMENT_04_VERTEX_TRANSFORMATION)
-	void transpose_matrix(const matrix_struct &original, matrix_struct & transposed);
-	void inverse_matrix(const matrix_struct &original, matrix_struct &inverted);
-	float** alocateMatriz();
-	float det4(matrix_struct matrix);
-	float det3(float** matrix);
-	float cofator(int row, int column, matrix_struct matrix);
-	void matrixCofatores(matrix_struct original, matrix_struct &cofatores);
-#endif
+/*
+	Produto escalar entre 2 vetorees
+*/
+float dotProduct(direction_struct a, direction_struct b);
 
-#if defined(ICGL_ASSIGNMENT_05_VERTEX_LIGHTING)
-	float maxV(float a, float b);
-#endif
+/*
+	Calcula matriz transposta
+*/
+void transpose_matrix(const matrix_struct &original, matrix_struct & transposed);
+
+/*
+	Calcula matriz inversa
+*/
+void inverse_matrix(const matrix_struct &original, matrix_struct &inverted);
+
+/*
+	Aloca uma matriz dinamicamente
+*/
+float** alocateMatriz();
+
+/*
+	Calcula uma determinante de uma matriz 4x4
+*/
+float det4(matrix_struct matrix);
+
+/*
+	Calcula uma determinante de uma matriz 3x3
+*/
+float det3(float** matrix);
+
+/*
+	Calcula o cofator pra o cálculo de matriz inversa
+*/
+float cofator(int row, int column, matrix_struct matrix);
+
+/*
+	Calcula a matriz de cofatores da matriz original
+*/
+void matrixCofatores(matrix_struct original, matrix_struct &cofatores);
+
+/*
+	Retorna o valor máximo entre a e b
+*/
+float maxV(float a, float b);
 
 // FIM DA DEFINIÇÃO DAS ROTINAS ÚTEIS IMPLEMENTADAS PELO ALUNO //////////////////////////////////////////////////////////////
 

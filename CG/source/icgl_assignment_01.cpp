@@ -130,15 +130,6 @@ void make_translation_matrix(float deltax, float deltay, float deltaz, matrix_st
 	translation_matrix(3,3) = 1;
 }
 
-void normalize (direction_struct &vector) {
-	float module = sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
-	if(module > 0.0) {
-		vector.x /= module;
-	    vector.y/= module;
-		vector.z /= module;
-	}
-}
-
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 
 #endif

@@ -107,9 +107,6 @@ void vertex_lighting(const location_struct &vertex_ec, const direction_struct &u
 	}
 }
 
-float maxV(float a, float b) {
-	return a > b ? a : b;
-}
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
 
 #endif

@@ -50,8 +50,6 @@ void make_lookat_matrix(float eyex, float eyey, float eyez, float centerx, float
 	direction_struct x = direction_struct();
 	direction_struct y = direction_struct();
 
-	float dotProductX, dotProductY, dotProductZ;
-
 	normalize(z);
 
 	crossProduct(up, z, x);	
@@ -60,14 +58,6 @@ void make_lookat_matrix(float eyex, float eyey, float eyez, float centerx, float
 	crossProduct(z, x, y);
 	normalize(y);  
 	
-	/*dotProductX =  dotProduct(x, eye);
-	dotProductY =  dotProduct(y, eye);
-	dotProductZ =  dotProduct(z, eye);
-	
-	printf("dot Product x %f \n", dotProductX);
-	printf("dot Product y %f \n", dotProductY);
-	printf("dot Product z %f \n", dotProductZ);*/
-
 	lookat_matrix = matrix_struct();
 	lookat_matrix(0,0) = x.x;
 	lookat_matrix(0,1) = y.x;
@@ -88,16 +78,6 @@ void make_lookat_matrix(float eyex, float eyey, float eyez, float centerx, float
 	lookat_matrix(3,1) = 0.0f;
 	lookat_matrix(3,2) = 0.0f;
 	lookat_matrix(3,3) = 1.0f;
-}
-
-void crossProduct(direction_struct a, direction_struct b, direction_struct &r) {
-	r.x = a.y * b.z - a.z * b.y;
-	r.y = - (a.x * b.z) + (a.z * b.x);
-	r.z = a.x * b.y - a.y * b.x;
-}
-
-float dotProduct(direction_struct a, direction_struct b) {
-	return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
 // FIM DA IMPLEMENTAÇÃO DOS PROCEDIMENTOS ASSOCIADOS COM A TAREFA RELACIONADA A ESTE ARQUIVO ////////////////////////////////
